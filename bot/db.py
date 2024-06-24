@@ -25,12 +25,14 @@ async def insert_user(
         user_id: int,
         telegram_id: int,
         session: AsyncSession
-) -> None:
+) -> User:
 
-    session.add(
-        User(
-            telegram_id=telegram_id,
-            user_id=user_id
-        )
+    user = User(
+        telegram_id=telegram_id,
+        user_id=user_id
     )
+
+    session.add(user)
     await session.commit()
+
+    return user
